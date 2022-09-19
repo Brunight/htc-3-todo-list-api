@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": "3fedd73d-cb22-4583-afdf-4fedb35d2f62",
+      "text": "Tomar café",
+      "checked": false
+    },
+    {
+      "id": "bdffd907-07cc-452f-a987-02fee21d2518",
+      "text": "Codar",
+      "checked": false
+    },
+    {
+      "id": "af2995ea-73d6-4b17-bc59-e2bd686a63c8",
+      "text": "Dormir",
+      "checked": true
+    }
+  ]
+}
