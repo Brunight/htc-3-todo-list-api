@@ -1,6 +1,9 @@
 import { Router } from 'express'
-import { todoRouter } from "./todo.routes";
+import { notesRouter } from './notes/index.routes'
+import { todosRouter } from './todos.routes'
 
 export const routes = Router()
 
-routes.use('/todo', todoRouter)
+routes.use('/notes', notesRouter)
+
+routes.use('/todos', todosRouter)
