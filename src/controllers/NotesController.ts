@@ -1,7 +1,9 @@
 import { Request, Response } from 'express'
 import { CreateNoteService } from '../services/CreateNoteService'
+import { DeleteNoteService } from '../services/DeleteNoteService'
 import { ListNotesService } from '../services/ListNotesService'
 import { ShowNoteService } from '../services/ShowNoteService'
+import { UpdateNoteService } from '../services/UpdateNoteService'
 
 export class NotesController {
 	async index(request: Request, response: Response): Promise<Response> {
@@ -31,16 +33,25 @@ export class NotesController {
 
 		return response.status(201).json(note)
 	}
-	
-	async update(request: Request, response: Response): Promise<Response> {
-		// TODO PUT
 
-		return response.json({})
+	async update(request: Request, response: Response): Promise<Response> {
+		const { id } = request.params
+		const { title, text } = request.body
+
+		const updateNote = new UpdateNoteService()
+
+		const note = await updateNote.execute({ id, title, text })
+
+		return response.json(note)
 	}
 
 	async delete(request: Request, response: Response): Promise<Response> {
-		// TODO DELETE
+		const { id } = request.params
 
-		return response.json({})
+		const deleteNote = new DeleteNoteService()
+
+		await deleteNote.execute({ id })
+
+		return response.send()
 	}
 }
