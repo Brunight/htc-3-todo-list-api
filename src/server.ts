@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
+import { ValidationError } from 'yup'
 import 'express-async-errors'
 
 import { routes } from './routes'
@@ -16,10 +17,14 @@ app.get('/', function (request, response) {
 
 app.use('/', routes)
 
-
 // Error handler
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
+	if (err instanceof ValidationError) {
+		return response.status(400).json({ error: true, message: err.message })
+	}
+
 	console.log(err)
+
 	if (err instanceof AppError) {
 		return response
 			.status(err.statusCode)
