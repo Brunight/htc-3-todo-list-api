@@ -7,5 +7,8 @@ interface RequestUploadedImage extends PrismaImage {
 declare namespace Express {
 	export interface Request {
 		uploadedImage?: RequestUploadedImage
+		user: {
+			id: string
+		}
 	}
 }

@@ -9,6 +9,8 @@ export class NotesController {
 	async index(request: Request, response: Response): Promise<Response> {
 		const listNotes = new ListNotesService()
 
+		console.log(request.user)
+
 		const notes = await listNotes.execute()
 
 		return response.json(notes)
