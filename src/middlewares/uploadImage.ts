@@ -18,11 +18,14 @@ export const uploadImage = async (
 			throw new AppError('Error uploading file.')
 		}
 
+		const userId = request.user.id
+
 		const { filename } = request.file
 
 		const image = await prisma.image.create({
 			data: {
-				filename
+				filename,
+				userId
 			}
 		})
 
@@ -31,7 +34,10 @@ export const uploadImage = async (
 			path.resolve(uploadsFolder, filename)
 		)
 
-		request.uploadedImage = { url: `http://localhost:3333/public/${filename}`, ...image }
+		request.uploadedImage = {
+			url: `http://localhost:3333/public/${filename}`,
+			...image
+		}
 
 		next()
 	})

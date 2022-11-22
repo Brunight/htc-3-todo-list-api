@@ -7,9 +7,11 @@ export class NoteTodosController {
 
 		const { text, checked } = request.body
 
+		const userId = request.user.id
+
 		const createNoteTodo = new CreateNoteTodoService()
 
-		const todo = await createNoteTodo.execute({ noteId, text, checked })
+		const todo = await createNoteTodo.execute({ noteId, text, checked, userId })
 
 		return response.status(201).json(todo)
 	}

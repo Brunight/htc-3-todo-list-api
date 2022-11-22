@@ -6,9 +6,11 @@ export class TodosController {
 	async show(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
+		const userId = request.user.id
+
 		const showTodo = new ShowTodoService()
 
-		const todo = await showTodo.execute({ id })
+		const todo = await showTodo.execute({ id, userId })
 
 		return response.json(todo)
 	}
@@ -16,9 +18,11 @@ export class TodosController {
 	async update(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
+		const userId = request.user.id
+
 		const toggleTodo = new ToggleTodoService()
 
-		const todo = await toggleTodo.execute({ id })
+		const todo = await toggleTodo.execute({ id, userId })
 
 		return response.json(todo)
 	}

@@ -42,11 +42,14 @@ export class NotesController {
 
 	async update(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
+
 		const { title, text } = request.body
+
+		const userId = request.user.id
 
 		const updateNote = new UpdateNoteService()
 
-		const note = await updateNote.execute({ id, title, text })
+		const note = await updateNote.execute({ id, title, text,userId })
 
 		return response.json(note)
 	}
@@ -54,9 +57,11 @@ export class NotesController {
 	async delete(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
+		const userId = request.user.id
+
 		const deleteNote = new DeleteNoteService()
 
-		await deleteNote.execute({ id })
+		await deleteNote.execute({ id, userId })
 
 		return response.send()
 	}
