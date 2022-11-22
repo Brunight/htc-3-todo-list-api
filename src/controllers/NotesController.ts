@@ -9,9 +9,9 @@ export class NotesController {
 	async index(request: Request, response: Response): Promise<Response> {
 		const listNotes = new ListNotesService()
 
-		console.log(request.user)
+		const userId = request.user.id
 
-		const notes = await listNotes.execute()
+		const notes = await listNotes.execute({ userId })
 
 		return response.json(notes)
 	}
@@ -19,9 +19,11 @@ export class NotesController {
 	async show(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
+		const userId = request.user.id
+
 		const showNote = new ShowNoteService()
 
-		const note = await showNote.execute({ id })
+		const note = await showNote.execute({ id, userId })
 
 		return response.json(note)
 	}
@@ -29,9 +31,11 @@ export class NotesController {
 	async create(request: Request, response: Response): Promise<Response> {
 		const { title, text, todos } = request.body
 
+		const userId = request.user.id
+
 		const createNote = new CreateNoteService()
 
-		const note = await createNote.execute({ title, text, todos })
+		const note = await createNote.execute({ title, text, todos, userId })
 
 		return response.status(201).json(note)
 	}

@@ -10,10 +10,11 @@ interface CreateNoteServiceParams {
 	title: string
 	text?: string
 	todos?: Todo[]
+  userId: string
 }
 
 export class CreateNoteService {
-	async execute({ title, text, todos }: CreateNoteServiceParams) {
+	async execute({ title, text, todos, userId }: CreateNoteServiceParams) {
     const parsedTodos = todos?.map((todo) => ({ ...todo, checked: !!todo.checked }))
 
     if (!title) {
@@ -24,6 +25,7 @@ export class CreateNoteService {
 			data: {
 				title,
 				text,
+				userId,
 				todos: {
 					create: parsedTodos
 				}
